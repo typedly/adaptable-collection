@@ -69,8 +69,16 @@ A **TypeScript** type definitions package for adaptable data collections with co
 
 ## Installation
 
+### 1. Install peer dependencies
+
 ```bash
-npm install @typedly/collection --save-peer
+npm install @typedly/configurable-collection --save-peer
+```
+
+### 2. Install package
+
+```bash
+npm install @typedly/adaptable-collection --save-peer
 ```
 
 ## Api
