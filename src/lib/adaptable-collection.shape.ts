@@ -1,6 +1,6 @@
 // Interface.
 import type { AdaptableDataShape } from '@typedly/adaptable-data';
-import type { CollectionSettings } from '@typedly/collection';
+import type { CollectionConfig, CollectionSettings } from '@typedly/collection';
 import type { ConfigurableCollectionAdapter, ConfigurableCollectionShape } from '@typedly/configurable-collection';
 // Type.
 import type { InferAsyncOf } from '@typedly/data';
@@ -23,15 +23,21 @@ export interface AdaptableCollectionShape<
   A extends ConfigurableCollectionAdapter<C, T, E, R>,
   C extends CollectionSettings<T, E, R> = InferSettings<A>,
   T extends Iterable<E> = InferCollectionType<C, A>,
-  E = InferElement<C, A>,
+  E = InferElement<C, A>, 
   R extends boolean = InferAsyncOf<[C, A]>
 > extends AdaptableDataShape<A, C, T, R>, ConfigurableCollectionShape<C, T, E, R> {
   /**
+   * @description The configuration settings for the collection, defining its behavior and structure.
+   * @type {CollectionConfig<C, T, E, R>}
+   */
+  configuration: CollectionConfig<C, T, E, R>;
+
+  /**
    * @description Updates the collection's configuration settings and returns a new collection instance with the updated settings.
-   * @template {C} NC 
-   * @template {ConfigurableCollectionAdapter<NC, T, E, R>} NA 
+   * @template {C} NC The new configuration type.
+   * @template {ConfigurableCollectionAdapter<NC, T, E, R>} NA The new adapter type.
    * @param {NC} settings The new configuration settings for the collection.
-   * @returns {AdaptableCollectionShape<NA, NC, T, E, R>} 
+   * @returns {AdaptableCollectionShape<NA, NC, T, E, R>}
    */
   with?<NC extends CollectionSettings<T, E, R>, NA extends ConfigurableCollectionAdapter<NC, T, E, R>>(
     settings: Partial<NC>
