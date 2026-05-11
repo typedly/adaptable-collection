@@ -39,8 +39,9 @@ A **TypeScript** type definitions package for adaptable data collections with co
 - [Installation](#installation)
 - [Api](#api)
   - [`AdaptableCollectionConstructor`](#adaptablecollectionconstructor)
-  - [`AdaptableCollection`](#adaptablecollectionshape)
-  - [`InferCollectionAdapter`](#infercollectionadapter)
+  - [`AdaptableCollectionShape`](#adaptablecollectionshape)
+  - [`AdaptableConfigurableCollectionAdapterConstructor`](#adaptableconfigurablecollectionadapterconstructor)
+  - [`AdaptableConfigurableCollectionShape`](#adaptableconfigurablecollectionshape)
 - [Contributing](#contributing)
 - [Support](#support)
 - [Code of Conduct](#code-of-conduct)
@@ -72,7 +73,12 @@ A **TypeScript** type definitions package for adaptable data collections with co
 ### 1. Install peer dependencies
 
 ```bash
-npm install @typedly/adaptable-data @typedly/configurable-collection --save-peer
+npm install
+  @typedly/adaptable-data
+  @typedly/configurable-collection
+  @typedly/collection
+  @typedly/iterable
+  --save-peer
 ```
 
 ### 2. Install package
@@ -85,11 +91,17 @@ npm install @typedly/adaptable-collection --save-peer
 
 ```typescript
 import {
+  // Adaptable & configurable
+  AdaptableConfigurableCollectionAdapterConstructor,
+  AdaptableConfigurableCollectionShape,
+
+  // Adaptable
+  AdaptableCollectionAdapterConstructor,
   AdaptableCollectionConstructor,
   AdaptableCollectionShape,
-  InferCollectionAdapter,
 } from '@typedly/adaptable-collection';
 ```
+
 
 ### `AdaptableCollectionConstructor`
 
@@ -107,12 +119,20 @@ The `AdaptableCollectionShape` interface defines a collection data structure tha
 import { AdaptableCollectionShape } from '@typedly/adaptable-collection';
 ```
 
-### `InferCollectionAdapter`
+### `AdaptableConfigurableCollectionShape`
 
-A utility type that infers the collection adapter type from a given adaptable collection shape.
+Adaptable configurable collection shape, combining adaptable configurable data and configurable collection shapes.
 
 ```typescript
-import { InferCollectionAdapter } from '@typedly/adaptable-collection';
+import { AdaptableConfigurableCollectionShape } from '@typedly/adaptable-collection';
+```
+
+### `AdaptableConfigurableCollectionAdapterConstructor`
+
+Adaptable configurable collection adapter constructor, defining how to create instances of adaptable configurable collection adapters.
+
+```typescript
+import { AdaptableConfigurableCollectionAdapterConstructor } from '@typedly/adaptable-collection';
 ```
 
 ## Contributing

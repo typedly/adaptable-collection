@@ -3,7 +3,11 @@
  */
 
 export type {
+  AdaptableConfigurableCollectionAdapterConstructor,
+  AdaptableConfigurableCollectionShape,
+} from './configurable';
+export type {
+  AdaptableCollectionAdapterConstructor,
   AdaptableCollectionConstructor,
   AdaptableCollectionShape,
-  InferCollectionAdapter,
 } from './lib';

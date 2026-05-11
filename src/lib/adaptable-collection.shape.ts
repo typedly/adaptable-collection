@@ -1,45 +1,22 @@
-// Interface.
+// Interface & Type.
 import type { AdaptableDataShape } from '@typedly/adaptable-data';
-import type { CollectionConfig, CollectionSettings } from '@typedly/collection';
-import type { ConfigurableCollectionAdapter, ConfigurableCollectionShape } from '@typedly/configurable-collection';
-// Type.
-import type { InferAsyncOf } from '@typedly/data';
-import type { InferCollectionType, InferElement } from '@typedly/collection';
-import type { InferSettings } from '@typedly/configurable-data';
+import type { AnyIterable, AnyIterableElement } from '@typedly/iterable';
+import type { CollectionAdapterShape, CollectionShape } from '@typedly/collection';
+import type { InferAsync } from '@typedly/data';
 /**
- * @description The `AdaptableCollectionShape` interface defines a collection data structure that can adapt to different configurations and behaviors based on the provided adapter and settings.
- * It extends both the `CollectionShape` and `AdaptableDataShape` interfaces, allowing it to inherit collection-specific functionalities while also supporting adaptability through the adapter pattern.
+ * @description Adaptable collection shape, combining adaptable data and collection shapes.
  * @export
  * @interface AdaptableCollectionShape
- * @template {CollectionAdapter<C, E, T, R>} A Adapter type that extends `CollectionAdapter` with element type `E`, collection type `T`, async behavior `R`, and settings type `C`.
- * @template {CollectionSettings<E, T, R>} [C=InferSettings<A>] The configuration type that extends `CollectionSettings` with element type `E`, collection type `T`, and async behavior `R`.
- * @template [E=InferElement<C, A>] The element type inferred from the configuration, or adapter, or defaults to `unknown` if not specified.
- * @template [T=InferCollectionType<C, A>] The collection type inferred from the configuration, or adapter, or defaults to `unknown` if not specified.
- * @template {boolean} [R=InferAsyncOf<[C, A]>] The async behavior flag inferred from the configuration or adapter, or defaults to `false` if not specified.
- * @extends {CollectionShape<E, T, R>} The main collection functionalities defined in `CollectionShape`.
- * @extends {AdaptableDataShape<A, T, C, R>} The adaptability functionalities defined in `AdaptableDataShape`, allowing the collection to adapt based on the adapter and settings.
+ * @template {CollectionAdapterShape<T, E, S> | undefined} A Collection adapter shape, defining how the collection adapts to different data sources or configurations.
+ * @template {AnyIterable<E>} T The collection type.
+ * @template [E=AnyIterableElement<T>] The element type, inferred from the collection type if not provided.
+ * @template {boolean} [S=InferAsync<A>] Whether the collection is asynchronous, inferred from the adapter if not provided.
+ * @extends {AdaptableDataShape<A, T, S>} Adaptable data shape, defining how the collection adapts to different data sources.
+ * @extends {CollectionShape<T, E, S>} Collection shape, defining the structure and behavior of the collection.
  */
 export interface AdaptableCollectionShape<
-  A extends ConfigurableCollectionAdapter<C, T, E, R>,
-  C extends CollectionSettings<T, E, R> = InferSettings<A>,
-  T extends Iterable<E> = InferCollectionType<C, A>,
-  E = InferElement<C, A>, 
-  R extends boolean = InferAsyncOf<[C, A]>
-> extends AdaptableDataShape<A, C, T, R>, ConfigurableCollectionShape<C, T, E, R> {
-  /**
-   * @description The configuration settings for the collection, defining its behavior and structure.
-   * @type {CollectionConfig<C, T, E, R>}
-   */
-  configuration: CollectionConfig<C, T, E, R>;
-
-  /**
-   * @description Updates the collection's configuration settings and returns a new collection instance with the updated settings.
-   * @template {C} NC The new configuration type.
-   * @template {ConfigurableCollectionAdapter<NC, T, E, R>} NA The new adapter type.
-   * @param {NC} settings The new configuration settings for the collection.
-   * @returns {AdaptableCollectionShape<NA, NC, T, E, R>}
-   */
-  with?<NC extends CollectionSettings<T, E, R>, NA extends ConfigurableCollectionAdapter<NC, T, E, R>>(
-    settings: Partial<NC>
-  ): AdaptableCollectionShape<NA, NC, T, E, R>;
-}
+  A extends CollectionAdapterShape<T, E, S> | undefined,
+  T extends AnyIterable<E>,
+  E = AnyIterableElement<T>, 
+  S extends boolean = InferAsync<A>
+> extends AdaptableDataShape<A, T, S>, CollectionShape<T, E, S> {}
