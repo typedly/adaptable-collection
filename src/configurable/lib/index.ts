@@ -1,0 +1,2 @@
+export type { AdaptableConfigurableCollectionAdapterConstructor } from './adaptable-configurable-collection-adapter.constructor';
+export type { AdaptableConfigurableCollectionShape } from './adaptable-configurable-collection.shape';
