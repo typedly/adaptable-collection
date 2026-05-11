@@ -9,8 +9,10 @@
     "registry": "https://registry.npmjs.org"
   },
   "peerDependencies": {
-    "@typedly/adaptable-data": "^5.0.1",
-    "@typedly/configurable-collection": "^2.0.0"
+    "@typedly/adaptable-data": "^6.0.0",
+    "@typedly/collection": "^8.0.0",
+    "@typedly/configurable-collection": "^4.0.0",
+    "@typedly/iterable": "^1.1.0"
   },
   "scripts": {
     "prepublishOnly": "npm install rimraf && npm run pkg && npm run clean",
